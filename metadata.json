@@ -1,0 +1,8 @@
+{
+  "name": "Prompt-a-Pix",
+  "description": "A powerful prompting AI photo editor. Retouch, fill, apply creative filters, and make professional adjustments to your images using simple text prompts or selections.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "prompt": ""
+}

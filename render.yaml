@@ -1,0 +1,52 @@
+services:
+  - type: web
+    runtime: static
+    name: accessaible-frontend
+    repo: https://github.com/qbikmuzik615/accessaible
+    region: virginia
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: accessaible-api
+          type: pserv
+          property: hostport
+
+  - type: pserv
+    runtime: node
+    name: accessaible-api
+    repo: https://github.com/qbikmuzik615/accessaible
+    region: virginia
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm run dev
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: accessaible-db
+          property: connectionString
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+
+  - type: worker
+    runtime: node
+    name: accessaible-worker
+    repo: https://github.com/qbikmuzik615/accessaible
+    region: virginia
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm run worker
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: accessaible-db
+          property: connectionString
+
+databases:
+  - name: accessaible-db
+    region: virginia
+    plan: starter
+    ipAllowList: []

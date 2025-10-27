@@ -3,7 +3,6 @@ services:
     runtime: static
     name: accessaible-frontend
     repo: https://github.com/qbikmuzik615/accessaible
-    region: virginia
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     envVars:
